@@ -9,6 +9,8 @@ class Manager extends Authenticatable
 {
     use Notifiable;
 
+    protected $table = 'managers';
+
     protected $guard = 'manager';
 
     protected $fillable = [
