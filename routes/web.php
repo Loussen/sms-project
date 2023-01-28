@@ -36,6 +36,7 @@ Route::prefix('register')->name('register.')->controller(RegisterController::cla
 
 Route::group(['middleware' => 'auth:customer'], function () {
     Route::get('/customer', [CustomerController::class,'index'])->name('customer-dashboard');
+    Route::get('/customer/getCompanies', [CustomerController::class,'getCompanies'])->name('customer-companies');
 });
 
 Route::group(['middleware' => 'auth:manager'], function () {

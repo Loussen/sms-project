@@ -40,4 +40,17 @@ class Company extends Model
 		'package_id',
 		'status'
 	];
+
+    /**
+     * Get the package that owns the company.
+     *
+     * Syntax: return $this->belongsTo(Package::class, 'foreign_key', 'owner_key');
+     *
+     * Example: return $this->belongsTo(Package::class, 'package_id', 'id');
+     *
+     */
+    public function package()
+    {
+        return $this->belongsTo(Package::class);
+    }
 }

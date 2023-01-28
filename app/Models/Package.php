@@ -37,4 +37,17 @@ class Package extends Model
 		'limit',
 		'status'
 	];
+
+    /**
+     * Get the companies for the package.
+     *
+     * Syntax: return $this->hasMany(Company::class, 'package_id', 'id');
+     *
+     * Example: return $this->hasMany(Company::class, 'package_id', 'id');
+     *
+     */
+    public function companies()
+    {
+        return $this->hasMany(Company::class);
+    }
 }
