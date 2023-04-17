@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,11 @@ Route::group(['middleware' => 'auth:customer'], function () {
     Route::get('/customer/getCompanies', [CustomerController::class,'getCompanies'])->name('customer-companies');
 });
 
+Route::group(['middleware' => 'auth:customer'], function () {
+    Route::get('/company/{company_id}', [CompanyController::class,'index'])->name('company-dashboard');
+    Route::get('/company/getInstances/{company_id}', [CompanyController::class,'getInstances'])->name('company-instances');
+});
+
 Route::group(['middleware' => 'auth:manager'], function () {
     Route::get('/manager', [ManagerController::class,'index'])->name('manager-dashboard');
 });
@@ -51,3 +57,7 @@ Route::prefix('logout')->controller(LoginController::class)->name('logout.')->gr
 Route::get('/login', function () {
     return redirect()->route('login.customer');
 });
+
+Route::get('/404', function () {
+    return view('errors.404');
+})->name('404');

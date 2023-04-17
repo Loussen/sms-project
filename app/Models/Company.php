@@ -9,6 +9,8 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Company
@@ -49,8 +51,18 @@ class Company extends Model
      * Example: return $this->belongsTo(Package::class, 'package_id', 'id');
      *
      */
-    public function package()
+    public function package(): BelongsTo
     {
         return $this->belongsTo(Package::class);
+    }
+
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function instance(): HasMany
+    {
+        return $this->hasMany(Instance::class);
     }
 }

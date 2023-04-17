@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -43,12 +44,14 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        if(Route::getCurrentRoute()->getAction('as') == 'login.customer') {
-            $this->middleware('guest:customer')->except('logoutCustomer');
-        } elseif(Route::getCurrentRoute()->getAction('as') == 'login.manager') {
-            $this->middleware('guest:manager')->except('logoutManager');
-        } else {
-            $this->middleware('guest')->except('logout');
+        if(!App::runningInConsole()) {
+            if (Route::getCurrentRoute()->getAction('as') == 'login.customer') {
+                $this->middleware('guest:customer')->except('logoutCustomer');
+            } elseif (Route::getCurrentRoute()->getAction('as') == 'login.manager') {
+                $this->middleware('guest:manager')->except('logoutManager');
+            } else {
+                $this->middleware('guest')->except('logout');
+            }
         }
 
     }
